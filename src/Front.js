@@ -89,7 +89,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 export default function Front() {
-  var port = "192.168.43.8:5000/";
+  var port = "localhost:5000/";
   const cookies = new Cookies();
   const classes = useStyles();
 
@@ -127,7 +127,8 @@ export default function Front() {
 
   function dataGraph(res){
   //  vegaEmbed("#view", "http://192.168.43.48/graph")
-  var spec = "http://192.168.43.48:5000/graph";
+  let fucker = global_arr[global_arr.length - 1];
+  var spec = "http://localhost:5000/stock-graph?query="+fucker;
   vegaEmbed('#view', spec).then(function(result) {
     // Access the Vega view instance (https://vega.github.io/vega/docs/api/view/) as result.view
   }).catch(console.error);
@@ -152,13 +153,12 @@ export default function Front() {
         var bastard = global_arr
         setLoad(bastard);
         console.log(loading)
-        
+
         if (global_arr.length > 0) {
           let fucker = global_arr[global_arr.length - 1];
           fo.append("query", fucker);
-          fetch("http://192.168.43.48:5000/news", {
-            method: "POST",
-            body: fo
+          fetch("http://localhost:5000/news?query="+fucker, {
+            method: "GET",
           })
             .then(resp => resp.json())
             // .then(res => vegaEmbed("#view", res['graph'], { height: "500px", width: "500px" }))
@@ -172,7 +172,7 @@ export default function Front() {
             .catch(err => console.log(err))
         }
       }
-    
+
     event.preventDefault();
     setFuck(Math.random());
 
@@ -185,16 +185,18 @@ export default function Front() {
       <Typography>
         {summ}
       </Typography>
-      
+
     )
     }
     return <div></div>
   }
 
-  
+
   const getSummary = () => {
-    fetch("http://192.168.43.48:5000/get_summary",{
-      method: "GET"
+    let fucker = global_arr[global_arr.length - 1];
+    fetch("http://localhost:5000/get-summary?query="+fucker,{
+      method: "GET",
+      credentials: "include",
     })
     .then(resp => resp.json())
     .then(res => console.log("THE RESPONSE FROM THE GET_SUMMARY IS: ", res))
@@ -223,13 +225,13 @@ export default function Front() {
   });
 
 
- const summ_get = () => {
+ function summ_get(){
    var b = '';
-   fetch('http://192.168.43.48:5000/get_summary', {
-     method: 'GET'
-   }).then(res => res.json()).then(res => b = res).catch(Err => console.log(Err))
-
-   return b
+   let fucker = global_arr[global_arr.length - 1];
+   return fetch('http://localhost:5000/get-summary?query='+fucker, {
+     method: 'GET',
+     credentials: "include",
+   }).then(res => res.json()).then(res => {return res})
  }
 
   return (
@@ -310,7 +312,7 @@ export default function Front() {
             </Box>
           </Grid>
         ) : (
-          
+
             <Paper style={{ padding: "30px", width: "600px" }}>
               <Grid container spacing="8">
                 <Grid item>
@@ -422,15 +424,11 @@ export default function Front() {
           </Box>
         </Grid>):
         (<Paper style={{marginTop:"50px"}}>
-          <div style={{height:"400px", width:"600px"}} >
-            {console.log("HERE IS THE IMAGE", img)}
-           <img style={{maxHeight: "400px", maxWidth:"500px"}} src={img} alt=""/>
-          </div>
           <Typography id="summarize">
-            {summ_get()}
+            {console.log(summ)}
           </Typography>
         </Paper>)}
-    
+
       </Container>
     </Grid>
   );
