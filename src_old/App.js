@@ -1,12 +1,12 @@
 import React from 'react';
-import Initial from './components/initial.js'
-import Form from './components/form.js'
+import Front from './Front.js';
 
 function App() {
   return (
     <div className="App">
-        <Initial/>
-        <Form/>
+      <header className="App-header">
+       <Front/>
+      </header>
     </div>
   );
 }
