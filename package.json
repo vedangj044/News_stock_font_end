@@ -5,13 +5,17 @@
   "dependencies": {
     "@material-ui/core": "^4.9.10",
     "@material-ui/icons": "^4.9.1",
+    "@material-ui/lab": "^4.0.0-alpha.49",
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.5.0",
     "@testing-library/user-event": "^7.2.1",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-reveal": "^1.2.2",
-    "react-scripts": "3.4.1"
+    "react-scripts": "3.4.1",
+    "vega": "^5.10.1",
+    "vega-embed": "^6.6.0",
+    "vega-lite": "^4.10.4"
   },
   "scripts": {
     "start": "react-scripts start",

@@ -11,9 +11,6 @@ import Avatar from "@material-ui/core/Avatar";
 import { makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles(theme => ({
-  root: {
-    height: "100vh"
-  },
   paper: {
     margin: theme.spacing(8, 4),
     display: "flex",
@@ -45,10 +42,6 @@ const useStyles = makeStyles(theme => ({
   iconButton: {
     padding: 10
   },
-  divider: {
-    height: 28,
-    margin: 4
-  }
 }));
 
 
@@ -58,18 +51,20 @@ export default function Form(props){
 
   const [queryArr, setQueryArr] = useState([]);
 
-  const handleDeleteChip = event => {
+  const handleDeleteChip = (event, comp1) => {
     var tempArr = [...queryArr];
-    var index = tempArr.indexOf(event.target.value);
+    var index = tempArr.indexOf(comp1);
     tempArr.splice(index, 1);
     setQueryArr(tempArr);
+    props.onChange(tempArr);
   };
 
   const handleEnter = event => {
     if (event.key === "Enter") {
       var compadd = event.target.value;
       if (compadd !== "" && queryArr.indexOf(compadd) === -1) {
-        setQueryArr([...queryArr, compadd])
+        setQueryArr([...queryArr, compadd]);
+        props.onChange([...queryArr, compadd]);
       }
 
     event.preventDefault();
@@ -85,21 +80,24 @@ export default function Form(props){
           <Paper
             component="form"
             className={classes.tfield}
-            style={{ borderRadius: "100px" }}
-          >
+            style={{ borderRadius: "100px" }}>
+
             <IconButton
               className={classes.iconButton}
-              aria-label="search"
-            >
+              aria-label="search">
+
               <SearchIcon/>
+
             </IconButton>
+
             <InputBase
               className={classes.input}
               placeholder="Search Companies of interest"
               inputProps={{ "aria-label": "search companies" }}
-              onKeyPress={handleEnter}
-            />
+              onKeyPress={handleEnter}/>
+
           </Paper>
+
           {queryArr.map(comp1 => (
               <Chip
                 variant="outlined"
@@ -109,9 +107,8 @@ export default function Form(props){
                 onDelete={event => handleDeleteChip(event, comp1)}
                 style={{ margin: "20px" }}
                 value={comp1}
-                key={comp1}
-              />
-            ))}
+                key={comp1}/>))}
+
         </form>
       </div>
       </Container>
