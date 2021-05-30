@@ -8,7 +8,7 @@ import Summary from './components/summary.js'
 function App() {
 
   const [queryArr, setQueryArr] = useState([]);
-  const [url] = useState("http://localhost:5000")
+  const [url] = useState(window._env_.API_URL)
 
   function handleChange(newValue){
     setQueryArr(newValue);
