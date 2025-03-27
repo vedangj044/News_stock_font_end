@@ -13,7 +13,7 @@
     "react-dom": "^16.13.1",
     "react-reveal": "^1.2.2",
     "react-scripts": "3.4.1",
-    "vega": "^5.10.1",
+    "vega": "^5.33.0",
     "vega-embed": "^6.6.0",
     "vega-lite": "^4.10.4"
   },
